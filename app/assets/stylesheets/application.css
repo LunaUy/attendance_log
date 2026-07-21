@@ -8,3 +8,9 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+/* Native select menus do not always inherit the select's dark theme. */
+select option {
+  background-color: #0f172a;
+  color: #e2e8f0;
+}

@@ -64,3 +64,9 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+# Use Tailwind CSS for a faster styling with AI [https://tailwindcss.com/docs/guides/ruby-on-rails]
+gem "tailwindcss-rails", "~> 4.6"
+
+# Use Simple Calendar for a calendar view with the user's activities
+gem "simple_calendar", "~> 3.1"
