@@ -1,75 +1,26 @@
 <div class="min-h-screen bg-slate-950 px-4 py-10 text-slate-100 sm:px-6 lg:px-8">
-<h1 class="text-center text-4xl font-bold tracking-tight text-white">Attendance Log</h1>
-<div class="mx-auto mt-8 max-w-3xl rounded-2xl border border-white/10 bg-white/[0.06] p-6 shadow-2xl shadow-black/20 sm:p-8">
-    <h2 class="mb-6 text-2xl font-semibold text-white">Check your attendance here :&#41;</h2>
-    <table class="w-full border-separate border-spacing-0 overflow-hidden rounded-xl border border-white/10 text-left">
-        
-    <thead>
-        <tr class="bg-white/5 text-sm uppercase tracking-wider text-slate-400"> <th class="border-b border-white/10 px-4 py-3 font-semibold">Activity</th> <th class="border-b border-white/10 px-4 py-3 font-semibold">Status Check</th> </tr>
-    </thead>
-        
-    <tbody class="divide-y divide-white/10">
-        <!-- Row 1: School -->
-        <tr class="bg-slate-900/60 transition hover:bg-slate-900">
-        <td class="activity px-4 py-4 font-medium text-slate-200">School</td>
-        <td class="px-4 py-4">
-            <select id="school-attendance" class="w-full rounded-lg border border-white/10 bg-slate-900 px-3 py-2 text-sm text-slate-200 shadow-sm outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-400/20 sm:w-40">
-                <option value="went" class="bg-slate-900 text-slate-200">✅ Went</option>
-                <option value="late" class="bg-slate-900 text-slate-200">⚠️ Late</option>
-                <option value="missed" class="bg-slate-900 text-slate-200">❌ Missed</option>
-                <option value="n/a" class="bg-slate-900 text-slate-200">N/A</option>
-            </select>
-        </td>
-        </tr>
-            
-        <!-- Row 2: Gymnastics -->
-        <tr class="bg-slate-900/60 transition hover:bg-slate-900">
-        <td class="activity px-4 py-4 font-medium text-slate-200">Gymnastics</td>
-        <td class="px-4 py-4">
-            <select id="gym-attendance" class="w-full rounded-lg border border-white/10 bg-slate-900 px-3 py-2 text-sm text-slate-200 shadow-sm outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-400/20 sm:w-40">
-                <option value="went" class="bg-slate-900 text-slate-200">✅ Went</option>
-                <option value="late" class="bg-slate-900 text-slate-200">⚠️ Late</option>
-                <option value="missed" class="bg-slate-900 text-slate-200">❌ Missed</option>
-                <option value="n/a" class="bg-slate-900 text-slate-200">N/A</option>
-            </select>
-        </td>
-        </tr>
-            
-        <!-- Row 3: Taekwondo -->
-        <tr class="bg-slate-900/60 transition hover:bg-slate-900">
-        <td class="activity px-4 py-4 font-medium text-slate-200">Taekwondo</td>
-        <td class="px-4 py-4">
-            <select id="tkw-attendance" class="w-full rounded-lg border border-white/10 bg-slate-900 px-3 py-2 text-sm text-slate-200 shadow-sm outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-400/20 sm:w-40">
-                <option value="went" class="bg-slate-900 text-slate-200">✅ Went</option>
-                <option value="late" class="bg-slate-900 text-slate-200">⚠️ Late</option>
-                <option value="missed" class="bg-slate-900 text-slate-200">❌ Missed</option>
-                <option value="n/a" class="bg-slate-900 text-slate-200">N/A</option>
-            </select>
-        </td>
-        </tr>
-    </tbody>
-    </table>
-</div>
-
-<div>
-  <h1>Activities</h1>
-
-  <%= month_calendar(events: @activities) do |date, activities| %>
-    <div class="day">
-    <%= date.day %>
-  
-    <% activities.each do |activity| %>
-      <div class="activity">
-      <%= activity.name %>
-      </div>
-    <% end %>
+    <h1 class="text-center text-4xl font-bold tracking-tight text-white">Attendance Log</h1>
+    <div class="mx-auto mt-8 max-w-3xl rounded-2xl border border-white/10 bg-white/[0.06] p-6 shadow-2xl shadow-black/20 sm:p-8">
+        <h2 class="mb-6 text-2xl font-semibold text-white">Check your attendance here :&#41;</h2>
+        <% @activities.each do |activity| %>
+            <div>
+                <h3><%= activity.name %></h3>
+                <select id="activity_<%= activity.id %>_status" name="activity_<%= activity.id %>_status" class="mt-2 block w-full rounded-md border-0 bg-white/5 py-1.5 pl-3 pr-10 text-white ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-400 sm:text-sm sm:leading-6">
+                    <option value="">Seleccionar Estado</option>
+                    <option value="on-time">On Time</option>
+                    <option value="late">Late</option>
+                    <option value="missed">Missed</option>
+                    <option value="rescheduled">Rescheduled</option>
+                    <option value="cancelled">Cancelled</option>
+                    <option value="n/a">N/A</option>
+                </select>
+            </div>
+        <% end %>
+        <div>
+            <button type="button" class="mt-6 w-full rounded-lg bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">Confirm Day</button>
+        </div>
     </div>
-  <% end %>
-</div>
-
-<div>
-<footer class="mx-auto mt-8 max-w-3xl text-center text-sm text-slate-500">
-    <a href="https://github.com/LunaUy/" target="_blank" rel="noreferrer" title="LunaUy" class="transition hover:text-indigo-300"><em>@LunaUy</em> GitHub</a>
-</footer>
-</div>
+    <footer class="mx-auto mt-8 max-w-3xl text-center text-sm text-slate-500">
+        <a href="https://github.com/LunaUy/" target="_blank" rel="noreferrer" title="LunaUy" class="transition hover:text-indigo-300"><em>@LunaUy</em> GitHub</a>
+    </footer>
 </div>
