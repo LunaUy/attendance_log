@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  activity: one
+  date: 2026-09-21
+  status: MyString
+
+two:
+  activity: two
+  date: 2026-09-21
+  status: MyString
