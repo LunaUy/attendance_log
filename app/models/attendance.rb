@@ -6,6 +6,11 @@ class Attendance < ApplicationRecord
   belongs_to :recurring_schedule, optional: true
 
   validates :scheduled_at, presence: true
+  validates :scheduled_at, uniqueness: {
+    scope: :activity_id,
+    message: "This activity already has an attendance registered at that date and time."
+  }
+
   validates :schedule_state, inclusion: { in: SCHEDULE_STATES }
   validates :status, inclusion: { in: ATTENDANCE_STATUSES }, allow_nil: true
 
@@ -24,7 +29,5 @@ class Attendance < ApplicationRecord
     return unless schedule_state == 'rescheduled'
     
     errors.add(:original_scheduled_at, 'must be set for rescheduled sessions') if original_scheduled_at.blank?
-
-    if 
   end
 end

@@ -1,0 +1,39 @@
+<h1 class="mx-4 mt-10 max-w-5xl text-2xl font-bold leading-tight tracking-tight text-white sm:mx-6 sm:text-4xl lg:mx-auto">Attendance Logs At a Glance</h1>
+<%= form_with url: attendances_path, method: :get, class: "mx-4 mt-8 flex max-w-5xl flex-col gap-3 rounded-2xl border border-white/10 bg-white/[0.06] p-5 shadow-xl shadow-black/10 sm:mx-6 sm:p-6 lg:mx-auto" do %>
+    <%= label_tag :activity_id, "Activity", class: "text-sm font-medium text-slate-200" %>
+    <%= select_tag :activity_id, options_from_collection_for_select(
+        @activities,
+        :id,
+        :name,
+        @selected_activity_id,
+        ),
+        include_blank: "All Activities",
+        class: "w-full rounded-lg border-0 bg-slate-900 px-3 py-2.5 text-slate-100 ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-indigo-400" %>
+
+    <%= label_tag :date, "Date", class: "text-sm font-medium text-slate-200" %>
+    <%= date_field_tag :date, @selected_date, class: "w-full rounded-lg border-0 bg-slate-900 px-3 py-2.5 text-slate-100 ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-indigo-400 [color-scheme:dark]" %>
+
+    <%= check_box_tag :include_archived, "1", @include_archived, class: "size-4 rounded border-white/20 bg-slate-900 text-indigo-500 focus:ring-indigo-400 focus:ring-offset-slate-950" %>
+    <%= label_tag :include_archived, "Archived Activities", class: "text-sm text-slate-300" %>
+
+    <%= submit_tag "Filter", class: "mt-2 rounded-lg bg-indigo-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400" %>
+    <%= link_to "Clear Filters", attendances_path, class: "text-center text-sm font-medium text-slate-400 transition hover:text-white focus-visible:outline-2 focus-visible:outline-indigo-400" %>
+<% end %>
+
+<%= link_to "Register Attendance", new_attendance_path, class: "mx-auto mt-6 block w-fit max-w-[calc(100%-2rem)] rounded-lg border border-indigo-400/30 bg-indigo-400/10 px-4 py-2.5 text-center text-sm font-semibold text-indigo-200 transition hover:bg-indigo-400/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400" %>
+<% if @attendances.any? %>
+    <% @attendances.each do |attendance| %>
+        <div class="mx-4 mt-4 flex max-w-5xl flex-wrap items-center gap-x-5 gap-y-3 rounded-xl border border-white/10 bg-slate-900/80 p-5 text-sm text-slate-300 shadow-lg shadow-black/10 sm:mx-6 lg:mx-auto">
+            <%= attendance.activity.name %>
+            <%= attendance.scheduled_at.strftime("%d/%m/%Y %H:%M") %>
+            <%= attendance.status.present? ? attendance.status.titleize : "Pending" %>
+            <%= attendance.schedule_state.humanize %>
+            <%= "Archived Activity" unless attendance.activity.active? %>
+            <%= button_to "Delete Attendance", attendance_path(attendance), method: :delete, data: {
+                turbo_confirm: "The selected attendance log will be permanently deleted with all its information. Proceed with caution."
+            }, class: "rounded-lg border border-red-400/30 bg-red-400/10 px-3 py-2 text-sm font-semibold text-red-200 transition hover:bg-red-400/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400" %>
+        </div>
+    <% end %>
+<% else %>
+        <%= "No attendance logs found :(" %>
+<% end %>

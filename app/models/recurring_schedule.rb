@@ -1,6 +1,7 @@
 class RecurringSchedule < ApplicationRecord
   belongs_to :activity
 
+  # the user should see BETWEEN MONDAY AND SUNDAY they must not need to care about 1 AND 7.
   validates :weekday, inclusion: { in: 1..7, message: "must be between 1 (Monday) and 7 (Sunday)" }
   validates :weekday, uniqueness: { scope: [:activity_id, :starts_at, :effective_from], message: "should be unique for the same activity, start time, and effective from date" }
 
@@ -18,7 +19,8 @@ class RecurringSchedule < ApplicationRecord
 
   def effective_until_after_effective_from
     return if effective_from.blank? || effective_until.blank?
-
+    # MUST BE AFTER because on the start date is useless, then you won´t be using a recurrent schedule.
+    # know what... SCRATCH THAT instead one should be able to select repeat in the same day for example every other hour.
     errors.add(:effective_until, "must be on or after the start date") if effective_until < effective_from
   end
 end

@@ -23,8 +23,24 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body data-controller="timezone">
-    <main>
+  <body data-controller="timezone" class="min-h-screen bg-slate-950 text-slate-100 antialiased">
+    <main class="min-h-screen">
+      <div class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/90 shadow-lg shadow-black/10 backdrop-blur">
+        <header class="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
+          <div class="grid min-h-14 grid-cols-[auto_minmax(0,1fr)] items-center gap-[clamp(0.25rem,2vw,1.5rem)] select-none sm:min-h-16">
+            <% # Hacer que tailwind haga select-none %>
+            <%= link_to "Attendance Log", root_path, class: "whitespace-nowrap text-[clamp(0.8rem,3vw,1.125rem)] font-bold tracking-tight text-white transition-colors duration-300 ease-out hover:text-indigo-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-indigo-400" %>
+            <nav id="navbarMenu" class="min-w-0">
+              <ul class="flex items-center justify-end gap-[clamp(0rem,0.5vw,0.25rem)] whitespace-nowrap pr-1 text-[clamp(0.68rem,2.2vw,0.875rem)] font-medium">
+                <li><%= link_to "Activities", activities_path, class: "block rounded-lg px-[clamp(0.25rem,1.2vw,0.75rem)] py-2 text-slate-300 transition-all duration-300 ease-out hover:bg-white/5 hover:text-white focus-visible:outline-2 focus-visible:outline-indigo-400" %></li>
+                <li><%= link_to "Attendance", attendances_path, class: "block rounded-lg px-[clamp(0.25rem,1.2vw,0.75rem)] py-2 text-slate-300 transition-all duration-300 ease-out hover:bg-white/5 hover:text-white focus-visible:outline-2 focus-visible:outline-indigo-400" %></li>
+                <li class="max-w-0 -translate-x-2 overflow-hidden opacity-0 transition-[max-width,opacity,transform] duration-500 ease-out motion-reduce:transition-none min-[520px]:max-w-24 min-[520px]:translate-x-0 min-[520px]:opacity-100"><span class="block cursor-not-allowed rounded-lg px-[clamp(0.25rem,1.2vw,0.75rem)] py-2 text-slate-600">Sign Up</span></li>
+                <li class="max-w-0 -translate-x-2 overflow-hidden opacity-0 transition-[max-width,opacity,transform] duration-500 ease-out motion-reduce:transition-none min-[640px]:max-w-20 min-[640px]:translate-x-0 min-[640px]:opacity-100"><span class="block cursor-not-allowed rounded-lg px-[clamp(0.25rem,1.2vw,0.75rem)] py-2 text-slate-600">Log In</span></li>
+              </ul>
+            </nav>
+          </div>
+        </header>
+      </div>
       <%= yield %>
     </main>
   </body>

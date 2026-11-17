@@ -1,0 +1,30 @@
+<div class="bg-slate-950 px-4 py-10 text-slate-100 sm:px-6 lg:px-8">
+    <h1 class="text-center text-4xl font-bold tracking-tight text-white sm:text-5xl">Attendance Log</h1>
+    <div class="mx-auto mt-8 max-w-3xl rounded-2xl border border-white/10 bg-slate-900/80 p-6 shadow-2xl shadow-black/20 sm:p-8">
+        <h2 class="mb-6 text-2xl font-semibold text-white">Check your attendance here :&#41;</h2>
+        <% @activities.each do |activity| %>
+            <%#
+            Early = arrived ealier than 5 minutes before the scheduled time
+            On Time = arrived within 5 minutes before or in the scheduled time
+            Late = arrived at least 1 minute after the scheduled time
+            Missed = did not attend the scheduled activity
+            %>
+            <div class="mb-5 border-l-2 border-indigo-400/60 pl-4 pr-1 last:mb-0">
+                <h3 class="text-sm font-semibold tracking-wide text-slate-200"><%= activity.name %></h3>
+                <select id="activity_<%= activity.id %>_status" name="activity_<%= activity.id %>_status" class="mt-2.5 block w-full cursor-pointer rounded-lg border border-indigo-400/30 bg-slate-950 px-3 py-2.5 text-white shadow-inner shadow-black/20 transition hover:border-indigo-300/60 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-400/40 sm:text-sm sm:leading-6">
+                    <option value="" class="bg-slate-900 text-slate-100">Pending</option>
+                    <option value="early" class="bg-slate-900 text-slate-100">Early</option>
+                    <option value="on-time" class="bg-slate-900 text-slate-100">On Time</option>
+                    <option value="late" class="bg-slate-900 text-slate-100">Late</option>
+                    <option value="missed" class="bg-slate-900 text-slate-100">Missed</option>
+                </select>
+            </div>
+        <% end %>
+        <div class="pt-2">
+            <button type="button" class="mt-6 w-full rounded-lg bg-indigo-500 px-3 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">Confirm Day</button>
+        </div>
+    </div>
+    <footer class="mx-auto mt-8 max-w-3xl text-center text-sm text-slate-500">
+        <a href="https://github.com/LunaUy/" target="_blank" rel="noreferrer" title="LunaUy" class="transition hover:text-indigo-300"><em>@LunaUy</em> GitHub</a>
+    </footer>
+</div>
